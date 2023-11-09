@@ -1,26 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import {AddonProvider} from "contexts/addonContext";
-import {PlanProvider} from "contexts/planContext";
-import {UserProvider} from "contexts/userContext";
-import {ToggleProvider} from "contexts/toggleContext";
-import {StepperProvider} from "contexts/stepperContext";
+import {ToggleProvider} from "contexts/ToggleContext";
 import ThemeConfig from "./theme";
+import {FormProvider} from "rc-field-form";
+import {StepperProvider} from "contexts/StepperContext";
+import {SubscriptionProvider} from "contexts/SubscriptionContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ThemeConfig>
-        <StepperProvider>
-            <UserProvider>
+        <FormProvider>
+            <StepperProvider>
                 <ToggleProvider>
-                    <PlanProvider>
-                        <AddonProvider>
-                            <App />
-                        </AddonProvider>
-                    </PlanProvider>
+                    <SubscriptionProvider>
+                        <App />
+                    </SubscriptionProvider>
                 </ToggleProvider>
-            </UserProvider>
-        </StepperProvider>
+            </StepperProvider>
+        </FormProvider>
     </ThemeConfig>
 );

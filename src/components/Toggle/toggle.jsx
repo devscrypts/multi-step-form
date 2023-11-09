@@ -1,20 +1,16 @@
 import React from "react";
 import {Stack, styled, Switch, Typography} from "@mui/material";
-import {useToggle} from "contexts/toggleContext";
+import {useToggle} from "contexts/ToggleContext";
 
 const Toggle = () => {
-    const {toggle, setToggle} = useToggle();
-
-    const handleChange = () => {
-        setToggle((prevState) => !prevState);
-    };
+    const {toggle, onToggle: handleToggle} = useToggle();
 
     return (
         <Container direction="row" justifyContent="center" alignItems="center">
             <StyledTypography selected={!toggle}>Monthly</StyledTypography>
             <StyledSwitch
                 checked={toggle}
-                onChange={handleChange}
+                onChange={handleToggle}
                 inputProps={{"aria-label": "controlled"}}
             />
             <StyledTypography selected={toggle}>Yearly</StyledTypography>

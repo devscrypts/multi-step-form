@@ -1,9 +1,9 @@
 import React, {useMemo} from "react";
 import {CssBaseline} from "@mui/material";
 import {
-    ThemeProvider,
     createTheme,
-    StyledEngineProvider
+    StyledEngineProvider,
+    ThemeProvider
 } from "@mui/material/styles";
 import palette from "./palette";
 import Button from "./overrides/button";
@@ -16,15 +16,6 @@ export default function ThemeConfig({children}) {
             palette,
             typography: {
                 fontFamily: "Ubuntu, sans-serif"
-            },
-            breakpoints: {
-                values: {
-                    xs: 0,
-                    sm: 375,
-                    md: 900,
-                    lg: 1200,
-                    xl: 1440
-                }
             }
         }),
         []

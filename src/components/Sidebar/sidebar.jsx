@@ -1,5 +1,5 @@
 import React from "react";
-import {useStepper} from "contexts/stepperContext";
+import {useStepper} from "contexts/StepperContext";
 import {
     Box,
     Stack,
@@ -8,22 +8,28 @@ import {
     StepLabel,
     Stepper,
     styled,
-    Typography
+    Typography,
+    useMediaQuery
 } from "@mui/material";
 import sidebarBackground from "assets/images/bg-sidebar-desktop.svg";
+import mobileSideBarBackground from "assets/images/bg-sidebar-mobile.svg";
 
 const Sidebar = () => {
     const {activeStep} = useStepper();
+    const isMd = useMediaQuery((theme) => theme.breakpoints.down("md"));
 
     return (
         <RootStyle>
-            <Stepper
-                activeStep={activeStep}
-                orientation="vertical"
+            <StyledStepper
+                activeStep={activeStep >= sidebarItems.length ? 3 : activeStep}
+                orientation={isMd ? "horizontal" : "vertical"}
                 connector={<DisabledStepConnector />}>
                 {sidebarItems.map((item, index) => (
                     <Step key={item.label}>
-                        <StyledStepLabel StepIconComponent={StepIcon}>
+                        <StyledStepLabel
+                            StepIconComponent={() => (
+                                <Box sx={{display: "none"}} />
+                            )}>
                             <Stack
                                 direction="row"
                                 spacing={2}
@@ -33,7 +39,7 @@ const Sidebar = () => {
                                         {index + 1}
                                     </Typography>
                                 </CircularWrapper>
-                                <Stack>
+                                <Stack sx={{display: isMd ? "none" : "flex"}}>
                                     <Label>{item.label}</Label>
                                     <Description>
                                         {item.description}
@@ -43,7 +49,7 @@ const Sidebar = () => {
                         </StyledStepLabel>
                     </Step>
                 ))}
-            </Stepper>
+            </StyledStepper>
         </RootStyle>
     );
 };
@@ -67,8 +73,6 @@ const sidebarItems = [
     }
 ];
 
-const StepIcon = () => <Box sx={{display: "none"}} />;
-
 const RootStyle = styled(Box)(({theme}) => ({
     backgroundImage: `url(${sidebarBackground})`,
     height: "100%",
@@ -76,7 +80,18 @@ const RootStyle = styled(Box)(({theme}) => ({
     backgroundSize: "auto 100%",
     backgroundRepeat: "no-repeat",
     paddingLeft: theme.spacing(2),
-    paddingTop: theme.spacing(5)
+    paddingTop: theme.spacing(5),
+    [theme.breakpoints.down("md")]: {
+        backgroundImage: `url(${mobileSideBarBackground})`,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        backgroundSize: "contain",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        zIndex: "1"
+    }
 }));
 
 const DisabledStepConnector = styled(StepConnector)({
@@ -90,6 +105,11 @@ const DisabledStepConnector = styled(StepConnector)({
     }
 });
 
+const StyledStepper = styled(Stepper)(({theme}) => ({
+    [theme.breakpoints.down("md")]: {
+        width: "fit-content"
+    }
+}));
 const StyledStepLabel = styled(StepLabel)(({theme}) => ({
     padding: 0,
     "& .MuiStepLabel-label": {
