@@ -28,18 +28,32 @@ const App = () => {
                     </Stack>
                 </Form>
             ) : (
-                <StyledCard>
-                    <Grid container>
-                        <Grid item xs={12} md={4}>
-                            <Sidebar />
+                <Stack
+                    sx={{width: "100%"}}
+                    alignItems="center"
+                    justifyContent="space-between">
+                    <StyledCard>
+                        <Grid container>
+                            <Grid item xs={12} md={4}>
+                                <Sidebar />
+                            </Grid>
+                            <Grid item xs={12} md={8}>
+                                <Form form={form} onFinish={() => handleNext()}>
+                                    <PageContent steps={steps} />
+                                </Form>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} md={8}>
-                            <Form form={form} onFinish={() => handleNext()}>
-                                <PageContent steps={steps} />
-                            </Form>
-                        </Grid>
-                    </Grid>
-                </StyledCard>
+                    </StyledCard>
+                    <Box
+                        sx={{
+                            width: "100%",
+                            top: "100%",
+                            p: 4,
+                            bgcolor: "common.white",
+                            zIndex: 3
+                        }}
+                    />
+                </Stack>
             )}
         </PageLayout>
     );
@@ -72,7 +86,6 @@ const PageLayout = styled(Box)(({theme}) => ({
     width: "100%",
     height: "100vh",
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.palette.neutral.magnolia
 }));
@@ -80,6 +93,7 @@ const PageLayout = styled(Box)(({theme}) => ({
 const StyledCard = styled(Card)(({theme}) => ({
     width: "70%",
     padding: theme.spacing(2),
+    margin: theme.spacing(8, 0, 0),
     [theme.breakpoints.down("md")]: {
         width: "90%",
         margin: "auto",
