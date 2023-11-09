@@ -48,7 +48,7 @@ const App = () => {
                         sx={{
                             width: "100%",
                             top: "100%",
-                            p: 4,
+                            p: 5,
                             bgcolor: "common.white",
                             zIndex: 3
                         }}
@@ -93,7 +93,7 @@ const PageLayout = styled(Box)(({theme}) => ({
 const StyledCard = styled(Card)(({theme}) => ({
     width: "70%",
     padding: theme.spacing(2),
-    margin: theme.spacing(8, 0, 0),
+    margin: theme.spacing(10, 0, 0),
     [theme.breakpoints.down("md")]: {
         width: "90%",
         margin: "auto",
